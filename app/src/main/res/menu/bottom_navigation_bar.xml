@@ -13,12 +13,7 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:title="search_tab"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_stuff"
-        android:enabled="true"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="Search stuff"
-        app:showAsAction="ifRoom" />
+
 
 
 </menu>

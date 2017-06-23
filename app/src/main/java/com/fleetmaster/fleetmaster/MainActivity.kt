@@ -25,17 +25,27 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemReselectedListener {  }
 
         bottom_navigation.setOnNavigationItemSelectedListener {
-            item ->  when(item.itemId) {
+            item ->  var frag: Fragment?
+            when(item.itemId) {
               R.id.action_search -> {
-                  fragmentTransaction.replace(R.id.fragment_container, ToolListFragment()).commit()
-                  true
+                  frag = ToolListFragment()
+
               }
                 R.id.action_nfc -> {
-                    fragmentTransaction.replace(R.id.fragment_container, NFCFragment()).commit()
-                    true
+                    frag = NFCFragment()
                 }
-            else -> false
+            else -> {
+                frag = null
+            }
         }
+
+            frag?.let {
+
+                val transaction = fragmentManager.beginTransaction()
+                transaction.replace(R.id.fragment_container, frag).commit()
+                true
+            }
+            true
         }
     }
 }
