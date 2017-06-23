@@ -1,4 +1,4 @@
-package com.fleetmaster.fleetmaster.find_tool_list
+package com.fleetmaster.fleetmaster.find_tool_list.recyclerView
 
 /**
  * Created by Norbert on 23.06.2017.

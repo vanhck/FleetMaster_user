@@ -1,4 +1,4 @@
-package com.fleetmaster.fleetmaster.find_tool_list
+package com.fleetmaster.fleetmaster.find_tool_list.recyclerView
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
