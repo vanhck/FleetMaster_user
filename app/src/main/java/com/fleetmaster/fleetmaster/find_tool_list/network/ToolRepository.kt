@@ -2,6 +2,7 @@ package com.fleetmaster.fleetmaster.find_tool_list.network
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.util.Log
 import com.fleetmaster.fleetmaster.find_tool_list.recyclerView.Tool
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +21,7 @@ class ToolRepository {
 
     init {
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://martinshare.com/api/van.php")
+                .baseUrl("http://martinshare.com/api/van.php/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         service = retrofit.create(FleetMasterService::class.java)
@@ -45,4 +46,24 @@ class ToolRepository {
 
     }
 
+    fun getItemPosition(id: Int, func: (Position) -> Unit) {
+
+        service.getPosition(id).enqueue(object : Callback<Position> {
+            override fun onFailure(call: Call<Position>?, t: Throwable?) {
+                //Cry silently
+                Log.d("lol", t.toString())
+            }
+
+            override fun onResponse(call: Call<Position>?, response: Response<Position>?) {
+                Log.d("lol","succ")
+                response?.let {
+                    it.body()?.let {
+                        func(it)
+                    }
+                }
+            }
+        })
+
+
+    }
 }

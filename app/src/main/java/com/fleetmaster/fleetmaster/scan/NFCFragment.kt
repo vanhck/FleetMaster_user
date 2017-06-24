@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 import com.fleetmaster.fleetmaster.R
 
@@ -15,11 +16,34 @@ import com.fleetmaster.fleetmaster.R
  */
 class NFCFragment : Fragment() {
 
+    lateinit var textView: TextView
+    lateinit var baseText: String
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_nfc, container, false)
+        val v = inflater!!.inflate(R.layout.fragment_nfc, container, false)
+
+
+
+        textView = v.findViewById(R.id.textView) as TextView
+
+        baseText = textView.text.toString()
+
+        textAnimation(0)
+
+        return v
+    }
+
+    fun textAnimation(numberOfPoints: Int) {
+        textView.postDelayed({
+            var n = numberOfPoints % 3
+            val builder = StringBuilder()
+            for(i in 0..n) {
+                builder.append(". ")
+            }
+            textView.text = "$baseText $builder"
+            textAnimation(n + 1)
+        }, 600)
     }
 
 }

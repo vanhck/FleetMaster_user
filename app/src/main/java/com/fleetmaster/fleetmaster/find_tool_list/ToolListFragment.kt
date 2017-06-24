@@ -2,6 +2,7 @@ package com.fleetmaster.fleetmaster.find_tool_list
 
 
 import android.arch.lifecycle.LifecycleFragment
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 
 import com.fleetmaster.fleetmaster.R
 import com.fleetmaster.fleetmaster.find_tool_list.recyclerView.ItemAdapter
+import com.fleetmaster.fleetmaster.find_tool_map.ToolMapsActivity
 
 
 /**
@@ -31,9 +33,24 @@ class ToolListFragment : LifecycleFragment() {
 
         val recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = ItemAdapter(mutableListOf())
+        val adapter = ItemAdapter(mutableListOf())
+        recyclerView.adapter = adapter
+        adapter.setOnItemClickListener {
+            id -> viewModel.onItemClicked(id)
+        }
 
 
+        viewModel.getObservableShowPosition().observe(this, Observer {
+            it?.let {
+                ToolMapsActivity.startActivity(it.lat, it.lon, context)
+            }
+        })
+
+        viewModel.getObservableToolList().observe(this, Observer {
+            it?.let {
+                adapter.setData(it)
+            }
+        })
 
         return view
     }
