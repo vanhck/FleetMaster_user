@@ -18,11 +18,14 @@ import com.fleetmaster.fleetmaster.R
 import com.fleetmaster.fleetmaster.find_tool_list.recyclerView.ItemAdapter
 import com.fleetmaster.fleetmaster.find_tool_map.ToolMapsActivity
 import android.content.Context.LAYOUT_INFLATER_SERVICE
+import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.ImageButton
 import com.fleetmaster.fleetmaster.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_tool_list.*
@@ -57,6 +60,25 @@ class ToolListFragment : LifecycleFragment() {
         activity?.toolbar2?.addView(v)
 
         val searchText = v.findViewById(R.id.search_text) as EditText
+        var inSearchState = false
+        val searchButton = v.findViewById(R.id.imageButton2) as ImageButton
+
+        searchButton.setOnClickListener {
+            if(inSearchState) {
+                searchText.visibility = View.INVISIBLE
+                searchButton.setImageResource(R.drawable.ic_search_black_24dp)
+                inSearchState = false
+                viewModel.clearRestriction()
+                searchText.setText("")
+
+            } else {
+                searchText.visibility = View.VISIBLE
+                searchButton.setImageResource(R.drawable.ic_close_black_24dp)
+                DrawableCompat.setTint(searchButton.drawable, ContextCompat.getColor(searchButton.context, R.color.black))
+                inSearchState = true
+
+            }
+        }
 
         searchText.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {
