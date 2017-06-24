@@ -5,13 +5,13 @@
         android:id="@+id/action_nfc"
         android:enabled="true"
         android:icon="@drawable/ic_nfc_black_24dp"
-        android:title="nfc_tag"
+        android:title="NFC"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_search"
         android:enabled="true"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="search_tab"
+        android:title="Suchen"
         app:showAsAction="ifRoom" />
 
 

@@ -1,12 +1,15 @@
 package com.fleetmaster.fleetmaster.find_tool_list.recyclerView
 
 import android.graphics.Color
+import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import com.fleetmaster.fleetmaster.R
 
 /**
@@ -35,12 +38,16 @@ class ItemAdapter(private var listData: List<Tool>): RecyclerView.Adapter<ItemAd
             itemView.setOnClickListener {
                 if(isAvailable) {
                     launchFindToolActivity(adapterPosition)
+                } else {
+                    Toast.makeText(itemView.context, "Das Objekt kann nicht abgeholt werden", Toast.LENGTH_SHORT).show()
                 }
             }
 
             imageButton.setOnClickListener {
                 if(isAvailable) {
                     launchFindToolActivity(adapterPosition)
+                } else {
+                    Toast.makeText(itemView.context, "Das Objekt kann nicht abgeholt werden", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -54,12 +61,17 @@ class ItemAdapter(private var listData: List<Tool>): RecyclerView.Adapter<ItemAd
             if(available) {
                 imageButton.setImageResource(R.drawable.ic_check_black_24dp)
         //        imageButton.setColorFilter(R.color.green,android.graphics.PorterDuff.Mode.MULTIPLY)
-                itemView.setBackgroundColor(Color.parseColor("#4CAF50"))
+              //  itemView.setBackgroundColor(Color.parseColor("#81C784"))
+                DrawableCompat.setTint(imageButton.drawable, ContextCompat.getColor(imageButton.context, R.color.green));
+
 
             } else {
                 imageButton.setImageResource(R.drawable.ic_close_black_24dp)
-            //    imageButton.setColorFilter(R.color.red,android.graphics.PorterDuff.Mode.MULTIPLY)
-                itemView.setBackgroundColor(Color.parseColor("#F44336"))
+                DrawableCompat.setTint(imageButton.drawable, ContextCompat.getColor(imageButton.context, R.color.red));
+
+
+                //    imageButton.setColorFilter(R.color.red,android.graphics.PorterDuff.Mode.MULTIPLY)
+          //      itemView.setBackgroundColor(Color.parseColor("#E57373"))
             }
         }
 

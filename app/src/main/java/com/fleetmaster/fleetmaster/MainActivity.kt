@@ -4,6 +4,7 @@ import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.LayoutInflater
 import com.fleetmaster.fleetmaster.find_tool_list.ToolListFragment
 import com.fleetmaster.fleetmaster.scan.NFCFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         val fragment = NFCFragment()
         fragmentTransaction.add(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
+
+
+
+        setSupportActionBar(toolbar2)
+
 
         //Nothing should happend on reselect
         bottom_navigation.setOnNavigationItemReselectedListener {  }

@@ -19,6 +19,8 @@ class ToolRepository {
 
     val service: FleetMasterService
 
+    var bufferLiveData: LiveData<List<Tool>>? = null
+
     init {
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://martinshare.com/api/van.php/")
@@ -29,6 +31,11 @@ class ToolRepository {
     }
 
     fun getToolList(): LiveData<List<Tool>> {
+        if(bufferLiveData != null ) {
+            return bufferLiveData!!
+        }
+
+
         val liveData = MutableLiveData<List<Tool>>()
 
         service.getToolList().enqueue(object: Callback<List<Tool>>{
@@ -42,6 +49,7 @@ class ToolRepository {
         })
 
 
+        bufferLiveData = liveData
         return liveData
 
     }

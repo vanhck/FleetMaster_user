@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.fleetmaster.fleetmaster.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 /**
@@ -24,6 +25,8 @@ class NFCFragment : Fragment() {
         val v = inflater!!.inflate(R.layout.fragment_nfc, container, false)
 
 
+        activity?.toolbar2?.removeAllViews()
+        activity?.toolbar2?.title = getString(R.string.app_name)
 
         textView = v.findViewById(R.id.textView) as TextView
 
