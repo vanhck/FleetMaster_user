@@ -19,7 +19,7 @@ class ToolRepository {
 
     val service: FleetMasterService
 
-    var bufferLiveData: LiveData<List<Tool>>? = null
+    var bufferList: List<Tool>? = null
 
     init {
         val retrofit = Retrofit.Builder()
@@ -30,13 +30,11 @@ class ToolRepository {
 
     }
 
-    fun getToolList(): LiveData<List<Tool>> {
-        if(bufferLiveData != null ) {
-            return bufferLiveData!!
+    fun getToolList(onFinish: (List<Tool>) -> Unit){
+        if(bufferList != null ) {
+            return onFinish (bufferList!!)
         }
 
-
-        val liveData = MutableLiveData<List<Tool>>()
 
         service.getToolList().enqueue(object: Callback<List<Tool>>{
             override fun onFailure(call: Call<List<Tool>>?, t: Throwable?) {
@@ -44,13 +42,13 @@ class ToolRepository {
             }
 
             override fun onResponse(call: Call<List<Tool>>?, response: Response<List<Tool>>?) {
-                liveData.value = response?.body()
+                response?.let {
+                    it.body()?.let {
+                        onFinish(it)
+                    }
+                }
             }
         })
-
-
-        bufferLiveData = liveData
-        return liveData
 
     }
 

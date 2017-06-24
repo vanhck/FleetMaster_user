@@ -13,15 +13,22 @@ import com.fleetmaster.fleetmaster.find_tool_list.recyclerView.Tool
 class MainViewModel: ViewModel() {
 
 
-    private val liveDataToolList = MutableLiveData<List<Tool>>()
+    private var liveDataToolList = MutableLiveData<List<Tool>>()
     private val liveDataShowPosition = MutableLiveData<Position>()
 
 
 
+    private var fullList: List<Tool> = listOf()
+
     private val toolRepository = ToolRepository()
 
     fun getObservableToolList(): LiveData<List<Tool>> {
-        return toolRepository.getToolList()
+
+        toolRepository.getToolList {
+            liveDataToolList.value = it
+            fullList = it
+        }
+        return liveDataToolList
     }
 
     fun getObservableShowPosition() = liveDataShowPosition
@@ -32,5 +39,15 @@ class MainViewModel: ViewModel() {
         toolRepository.getItemPosition(id, {position -> liveDataShowPosition.value = position})
     }
 
+
+    fun restrictToStartsWith(prefix: String) {
+        val newColl = fullList?.filter { it.name.toLowerCase().startsWith(prefix) }
+
+        liveDataToolList.value = newColl
+    }
+
+    fun clearRestriction() {
+        liveDataToolList.value = fullList
+    }
 
 }

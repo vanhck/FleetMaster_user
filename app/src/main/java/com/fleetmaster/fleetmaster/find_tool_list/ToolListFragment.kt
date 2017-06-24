@@ -20,6 +20,9 @@ import com.fleetmaster.fleetmaster.find_tool_map.ToolMapsActivity
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import com.fleetmaster.fleetmaster.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_tool_list.*
@@ -53,6 +56,22 @@ class ToolListFragment : LifecycleFragment() {
                 .inflate(R.layout.action_bar, null, false)
         activity?.toolbar2?.addView(v)
 
+        val searchText = v.findViewById(R.id.search_text) as EditText
+
+        searchText.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                s?.let {
+                    viewModel.restrictToStartsWith(s.toString().toLowerCase())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
 
         val recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
