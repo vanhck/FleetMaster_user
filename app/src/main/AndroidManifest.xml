@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fleetmaster.fleetmaster">
 
+    <uses-permission android:name="android.permission.NFC" />
+
+
     <!-- android:roundIcon="@mipmap/ic_launcher_round" -->
     <application
         android:allowBackup="true"

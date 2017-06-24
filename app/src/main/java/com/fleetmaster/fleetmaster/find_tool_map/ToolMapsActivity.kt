@@ -56,7 +56,8 @@ class ToolMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val toolLocation = LatLng(lat, long)
         p0?.addMarker(MarkerOptions().position(toolLocation)
                 .title("Hier ist dein Gegenstand"))
-        p0?.moveCamera(CameraUpdateFactory.newLatLng(toolLocation))
+        p0?.moveCamera(CameraUpdateFactory.newLatLngZoom(toolLocation, 10f))
+
     }
 
     private fun navigateToLocation() {
